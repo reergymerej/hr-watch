@@ -28,37 +28,66 @@ function msToNs(ms) {
   return ms * 1e6;
 }
 
-describe('start/stop', () => {
-  it('should return the elapsed time in ns', (done) => {
-    const wait = 10;
-    app.start();
-
-    setTimeout(() => {
-      const result = app.stop();
-      will(result).beAbout(msToNs(wait));
-      done();
-    }, wait);
+describe('o-clock', () => {
+  beforeEach(() => {
+    app.clear();
   });
 
-  it('should return time in ms', (done) => {
-    const wait = 10;
-    app.start();
+  describe('start/stop', () => {
+    describe('returned value', () => {
+      it('should be elapsed ns', (done) => {
+        const wait = 10;
+        app.start();
 
-    setTimeout(() => {
-      const result = app.stop('ms');
-      will(result).beAbout(wait);
-      done();
-    }, wait);
-  });
+        setTimeout(() => {
+          const result = app.stop();
+          will(result).beAbout(msToNs(wait));
+          done();
+        }, wait);
+      });
 
-  it('should return time in seconds', (done) => {
-    const wait = 10;
-    app.start();
+      it('should be elapsed ms when specified', (done) => {
+        const wait = 10;
+        app.start();
 
-    setTimeout(() => {
-      const result = app.stop('s');
-      will(result).beAbout(wait / 1000);
-      done();
-    }, wait);
+        setTimeout(() => {
+          const result = app.stop('ms');
+          will(result).beAbout(wait);
+          done();
+        }, wait);
+      });
+
+      it('should be elapsed s when specified', (done) => {
+        const wait = 10;
+        app.start();
+
+        setTimeout(() => {
+          const result = app.stop('s');
+          will(result).beAbout(wait / 1000);
+          done();
+        }, wait);
+      });
+    });
+
+    describe('start/stop/start/stop', () => {
+      it('should returned the total elapsed time', (done) => {
+        const wait = 10;
+        app.start();
+
+        setTimeout(() => {
+          app.stop('s');
+
+          setTimeout(() => {
+            app.start();
+
+            setTimeout(() => {
+              const result = app.stop('ms');
+              will(result).beAbout(wait * 2);
+              done();
+            }, wait);
+          }, wait);
+        }, wait);
+      });
+    });
   });
 });

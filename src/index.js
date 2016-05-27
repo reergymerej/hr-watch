@@ -3,6 +3,7 @@ const MS = 'ms';
 const NS = 'ns';
 
 let startTime;
+let elapsedNS = 0;
 
 function toNS(hrtimeDiff) {
   return hrtimeDiff[0] * 1e9 + hrtimeDiff[1];
@@ -22,13 +23,20 @@ export function start() {
 
 export function stop(unit = NS) {
   const hrtimeDiff = process.hrtime(startTime);
+  const ns = toNS(hrtimeDiff);
+  elapsedNS += ns;
 
   switch (unit) {
     case MS:
       return toMS(hrtimeDiff);
     case S:
       return toSeconds(hrtimeDiff);
+    case NS:
     default:
-      return toNS(hrtimeDiff);
+      return ns;
   }
+}
+
+export function clear() {
+  elapsedNS = 0;
 }
