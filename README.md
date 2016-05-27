@@ -23,6 +23,9 @@ gets current timer
 **clear**  
 clears out timer  
 
+**reset**  
+stops timer and clears
+
 **unit(unit)**  
 sets returned unit (ns, ms, s), by default this is ns
 

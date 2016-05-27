@@ -28,6 +28,24 @@ function msToNs(ms) {
   return ms * 1e6;
 }
 
+function runSchedule(schedule, interval) {
+  return new Promise(resolve => {
+    const results = [];
+    let i = 0;
+
+    const intervalObject = setInterval(() => {
+      results.push(schedule[++i]());
+
+      if (i === schedule.length - 1) {
+        clearInterval(intervalObject);
+        resolve(results);
+      }
+    }, interval);
+
+    results.push(schedule[i]());
+  });
+}
+
 describe('o-clock', () => {
   beforeEach(() => {
     app.clear();
@@ -104,47 +122,76 @@ describe('o-clock', () => {
     });
   });
 
-  describe('read', () => {
-    let timer;
+  describe.only('lap()', () => {
+    beforeEach(() => {
+      app.reset();
+    });
 
-    beforeEach((done) => {
-      app.start();
-      setTimeout(() => {
-        app.stop();
+    it('should return an array of all the laps recorded', (done) => {
+      const schedule = [
+        () => { return app.start() },
+        () => { return app.lap() },
+        () => { return app.lap() },
+      ];
+
+      runSchedule(schedule, 10).then((results) => {
+        const [, lap1, lap2] = results;
+        will(lap1).beAn(Array);
+        will(lap1.length).be(1);
+        will(lap2).beAn(Array);
+        will(lap2.length).be(2);
         done();
-      }, timer = 10);
+      }).catch(done);
     });
+  });
 
-    describe('()', () => {
-      it('should return elapsed time in ns', () => {
-        const result = app.read();
-        const expected = msToNs(timer);
-        will(result).beAbout(expected);
+  describe('read', () => {
+    describe('when not running laps', () => {
+      let timer;
+
+      beforeEach((done) => {
+        app.start();
+        setTimeout(() => {
+          app.stop();
+          done();
+        }, timer = 10);
+      });
+
+      describe('()', () => {
+        it('should return elapsed time in ns', () => {
+          const result = app.read();
+          const expected = msToNs(timer);
+          will(result).beAbout(expected);
+        });
+      });
+
+      describe('(ns)', () => {
+        it('should return elapsed time in ns', () => {
+          const result = app.read();
+          const expected = msToNs(timer);
+          will(result).beAbout(expected);
+        });
+      });
+
+      describe('(ms)', () => {
+        it('should return elapsed time in ms', () => {
+          const result = app.read('ms');
+          const expected = timer;
+          will(result).beAbout(expected);
+        });
+      });
+
+      describe('(s)', () => {
+        it('should return elapsed time in s', () => {
+          const result = app.read('s');
+          const expected = timer / 1e3;
+          will(result).beAbout(expected);
+        });
       });
     });
 
-    describe('(ns)', () => {
-      it('should return elapsed time in ns', () => {
-        const result = app.read();
-        const expected = msToNs(timer);
-        will(result).beAbout(expected);
-      });
-    });
+    xdescribe('when running laps', () => {
 
-    describe('(ms)', () => {
-      it('should return elapsed time in ms', () => {
-        const result = app.read('ms');
-        const expected = timer;
-        will(result).beAbout(expected);
-      });
-    });
-
-    describe('(s)', () => {
-      it('should return elapsed time in s', () => {
-        const result = app.read('s');
-        const expected = timer / 1e3;
-        will(result).beAbout(expected);
-      });
     });
   });
 });
