@@ -103,4 +103,48 @@ describe('o-clock', () => {
       }, 10);
     });
   });
+
+  describe('read', () => {
+    let timer;
+
+    beforeEach((done) => {
+      app.start();
+      setTimeout(() => {
+        app.stop();
+        done();
+      }, timer = 10);
+    });
+
+    describe('()', () => {
+      it('should return elapsed time in ns', () => {
+        const result = app.read();
+        const expected = msToNs(timer);
+        will(result).beAbout(expected);
+      });
+    });
+
+    describe('(ns)', () => {
+      it('should return elapsed time in ns', () => {
+        const result = app.read();
+        const expected = msToNs(timer);
+        will(result).beAbout(expected);
+      });
+    });
+
+    describe('(ms)', () => {
+      it('should return elapsed time in ms', () => {
+        const result = app.read('ms');
+        const expected = timer;
+        will(result).beAbout(expected);
+      });
+    });
+
+    describe('(s)', () => {
+      it('should return elapsed time in s', () => {
+        const result = app.read('s');
+        const expected = timer / 1e3;
+        will(result).beAbout(expected);
+      });
+    });
+  });
 });

@@ -41,6 +41,16 @@ export function clear() {
   elapsedNS = 0;
 }
 
-export function read() {
-  return elapsedNS;
+export function read(unit = NS) {
+  switch (unit) {
+    case MS:
+      return elapsedNS / 1e6;
+    case S:
+      // 1s = 1000ms
+      // 1s = 1000000000ns
+      return elapsedNS / 1e9;
+    case NS:
+    default:
+      return elapsedNS;
+  }
 }

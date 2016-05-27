@@ -28,7 +28,9 @@ sets returned unit (ns, ms, s), by default this is ns
 
 
 
-
+## TODO
+* multiple named timers
+* clean up README
 
 
 
