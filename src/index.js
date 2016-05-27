@@ -40,3 +40,7 @@ export function stop(unit = NS) {
 export function clear() {
   elapsedNS = 0;
 }
+
+export function read() {
+  return elapsedNS;
+}

@@ -90,4 +90,17 @@ describe('o-clock', () => {
       });
     });
   });
+
+  describe('clear', () => {
+    it('should reset the elapsed time', (done) => {
+      app.start();
+      setTimeout(() => {
+        app.stop();
+        will(app.read()).beGreaterThan(0);
+        app.clear();
+        will(app.read()).be(0);
+        done();
+      }, 10);
+    });
+  });
 });
