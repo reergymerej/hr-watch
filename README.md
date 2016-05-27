@@ -5,7 +5,7 @@ A high-resoultion stopwatch for Node.
 ## API
 
 start - starts/restarts timer  
-stop - stops timer, returns elapsed time (unit)
+stop(unit) - stops timer, returns elapsed time (unit)
 lap - marks a lap, starts a new lap timer, returns previous lap time (unit)
 read([unit]) - gets current timer
 - when running laps, returns an array of laps

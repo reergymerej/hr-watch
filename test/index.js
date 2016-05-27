@@ -29,14 +29,35 @@ function msToNs(ms) {
 }
 
 describe('start/stop', () => {
-  it('should return the elapsed time', (done) => {
+  it('should return the elapsed time in ns', (done) => {
     const wait = 10;
-
     app.start();
 
     setTimeout(() => {
       const result = app.stop();
       will(result).beAbout(msToNs(wait));
+      done();
+    }, wait);
+  });
+
+  it('should return time in ms', (done) => {
+    const wait = 10;
+    app.start();
+
+    setTimeout(() => {
+      const result = app.stop('ms');
+      will(result).beAbout(wait);
+      done();
+    }, wait);
+  });
+
+  it('should return time in seconds', (done) => {
+    const wait = 10;
+    app.start();
+
+    setTimeout(() => {
+      const result = app.stop('s');
+      will(result).beAbout(wait / 1000);
       done();
     }, wait);
   });
