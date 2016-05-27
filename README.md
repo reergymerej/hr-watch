@@ -4,20 +4,27 @@ A high-resoultion stopwatch for Node.
 
 ## API
 
-start - starts timer  
+**start**  
+starts timer  
 
-stop([unit]) - stops timer, returns elapsed time
+**stop([unit])**  
+stops timer  
+returns elapsed time
 
-lap - marks a lap, starts a new lap timer, returns previous lap time (unit)  
+**lap**  
+marks a lap, starts a new lap timer  
+returns previous lap time (unit)  
 
-read([unit]) - gets current timer  
+**read([unit])**  
+gets current timer    
 - when running laps, returns an array of laps
 - when not running laps, returns the current elapsed time
-- specify unit  
 
-clear - clears out timer  
+**clear**  
+clears out timer  
 
-unit - sets returned unit (ns, ms, s), by default this is ns
+**unit(unit)**  
+sets returned unit (ns, ms, s), by default this is ns
 
 
 
