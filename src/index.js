@@ -4,59 +4,61 @@ const NS = 'ns';
 
 let startTime;
 let elapsedNS = 0;
+let laps = [];
 
 function toNS(hrtimeDiff) {
   return hrtimeDiff[0] * 1e9 + hrtimeDiff[1];
-}
-
-function toMS(hrtimeDiff) {
-  return toNS(hrtimeDiff) / 1e6;
-}
-
-function toSeconds(hrtimeDiff) {
-  return toNS(hrtimeDiff) / 1e9;
 }
 
 export function start() {
   startTime = process.hrtime();
 }
 
+export function clear() {
+  startTime = null;
+  elapsedNS = 0;
+  laps = [];
+}
+
+export function read(unit = NS) {
+  if (startTime) {
+    const hrtimeDiff = process.hrtime(startTime);
+    const ns = toNS(hrtimeDiff);
+
+    switch (unit) {
+      case MS:
+      return ns / 1e6;
+      case S:
+      return ns / 1e9;
+      case NS:
+      default:
+      return ns;
+    }
+  } else {
+    return 0;
+  }
+}
+
 export function stop(unit = NS) {
-  const hrtimeDiff = process.hrtime(startTime);
-  const ns = toNS(hrtimeDiff);
+  const ns = read();
   elapsedNS += ns;
 
   switch (unit) {
     case MS:
-      return toMS(hrtimeDiff);
+      return ns / 1e6;
     case S:
-      return toSeconds(hrtimeDiff);
+      return ns / 1e9;
     case NS:
     default:
       return ns;
   }
 }
 
-export function clear() {
-  elapsedNS = 0;
-}
-
-export function read(unit = NS) {
-  switch (unit) {
-    case MS:
-      return elapsedNS / 1e6;
-    case S:
-      return elapsedNS / 1e9;
-    case NS:
-    default:
-      return elapsedNS;
-  }
-}
-
 export function reset() {
-
+  clear();
 }
 
-export function lap() {
-  return [];
+export function lap(unit = NS) {
+  laps.push(read(unit));
+  return laps.slice();
 }

@@ -28,6 +28,7 @@ function msToNs(ms) {
   return ms * 1e6;
 }
 
+// TODO: module idea?
 function runSchedule(schedule, interval) {
   return new Promise(resolve => {
     const results = [];
@@ -122,7 +123,7 @@ describe('o-clock', () => {
     });
   });
 
-  describe.only('lap()', () => {
+  describe('lap()', () => {
     beforeEach(() => {
       app.reset();
     });
@@ -134,10 +135,13 @@ describe('o-clock', () => {
         () => { return app.lap() },
       ];
 
-      runSchedule(schedule, 10).then((results) => {
+      const timer = 5;
+
+      runSchedule(schedule, timer).then((results) => {
         const [, lap1, lap2] = results;
         will(lap1).beAn(Array);
         will(lap1.length).be(1);
+        will(lap1[0]).beAbout(msToNs(timer));
         will(lap2).beAn(Array);
         will(lap2.length).be(2);
         done();
