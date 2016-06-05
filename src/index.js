@@ -24,16 +24,26 @@ export function read(unit = NS) {
   if (startTime) {
     const hrtimeDiff = process.hrtime(startTime);
     const ns = toNS(hrtimeDiff);
+    let result;
 
     switch (unit) {
       case MS:
-      return ns / 1e6;
+        result = ns / 1e6;
+        break;
       case S:
-      return ns / 1e9;
+        result = ns / 1e9;
+        break;
       case NS:
       default:
-      return ns;
+        result = ns;
     }
+
+    if (laps.length) {
+      return [...laps.slice(), result];
+    } else {
+      return result;
+    }
+    
   } else {
     return 0;
   }

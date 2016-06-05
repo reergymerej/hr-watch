@@ -50,6 +50,7 @@ function runSchedule(schedule, interval) {
 describe('o-clock', () => {
   beforeEach(() => {
     app.clear();
+    app.reset();
   });
 
   describe('start/stop', () => {
@@ -124,10 +125,6 @@ describe('o-clock', () => {
   });
 
   describe('lap()', () => {
-    beforeEach(() => {
-      app.reset();
-    });
-
     it('should return an array of all the laps recorded', (done) => {
       const schedule = [
         () => { return app.start() },
@@ -194,8 +191,22 @@ describe('o-clock', () => {
       });
     });
 
-    xdescribe('when running laps', () => {
+    describe('when running laps', () => {
+      it('should return previous laps and current lap', done => {
+        const schedule = [
+          () => { return app.start() },
+          () => { return app.lap() },
+          () => { return app.lap() },
+        ];
 
+        const timer = 5;
+
+        runSchedule(schedule, timer).then(() => {
+          const results = app.read();
+          will(results.length).be(3);
+          done();
+        }).catch(done);
+      });
     });
   });
 });
