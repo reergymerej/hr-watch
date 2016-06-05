@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "o-clock",
+  "name": "hr-watch",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
@@ -20,10 +20,10 @@
   "directories": {
     "test": "test"
   },
-  "description": "v1.0.0 [![Build Status](https://travis-ci.org/reergymerej/o-clock.svg?branch=master)](https://travis-ci.org/reergymerej/o-clock)",
+  "description": "v1.0.0 [![Build Status](https://travis-ci.org/reergymerej/hr-watch.svg?branch=master)](https://travis-ci.org/reergymerej/hr-watch)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reergymerej/o-clock.git"
+    "url": "git+https://github.com/reergymerej/hr-watch.git"
   },
   "keywords": [
     "timer",
@@ -33,7 +33,7 @@
   ],
   "author": "Jeremy Greer <jeremy.greer.atl@gmail.com>",
   "bugs": {
-    "url": "https://github.com/reergymerej/o-clock/issues"
+    "url": "https://github.com/reergymerej/hr-watch/issues"
   },
-  "homepage": "https://github.com/reergymerej/o-clock#readme"
+  "homepage": "https://github.com/reergymerej/hr-watch#readme"
 }

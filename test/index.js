@@ -47,7 +47,7 @@ function runSchedule(schedule, interval) {
   });
 }
 
-describe('o-clock', () => {
+describe('hr-watch', () => {
   beforeEach(() => {
     app.clear();
     app.reset();

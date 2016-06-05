@@ -1,7 +1,7 @@
-# o-clock
+# hr-watch
 
 v1.0.0
-[![Build Status](https://travis-ci.org/reergymerej/o-clock.svg?branch=master)](https://travis-ci.org/reergymerej/o-clock)
+[![Build Status](https://travis-ci.org/reergymerej/hr-watch.svg?branch=master)](https://travis-ci.org/reergymerej/hr-watch)
 
 A high-resoultion stopwatch for Node.
 
