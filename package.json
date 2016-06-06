@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "hr-watch",
   "main": "lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "directories": {
     "test": "test"
   },
-  "description": "v1.0.0 [![Build Status](https://travis-ci.org/reergymerej/hr-watch.svg?branch=master)](https://travis-ci.org/reergymerej/hr-watch)",
+  "description": "A high-resoultion stopwatch for Node.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reergymerej/hr-watch.git"

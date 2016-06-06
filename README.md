@@ -1,9 +1,9 @@
 # hr-watch
 
-v1.0.0
+A high-resoultion stopwatch for Node.  
+v1.0.1
 [![Build Status](https://travis-ci.org/reergymerej/hr-watch.svg?branch=master)](https://travis-ci.org/reergymerej/hr-watch)
 
-A high-resoultion stopwatch for Node.
 
 ## API
 
